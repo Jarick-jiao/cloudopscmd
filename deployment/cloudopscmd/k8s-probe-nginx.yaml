@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: httpserverdenydiy:v0.5
+        imagePullPolicy: IfNotPresent
+        command: ["/app/httpServer"]
+        args: 
+          - "-serverhttp01" #server01监听端口
+          - "0.0.0.0:8088"
+          - "-serverTime01" #serverTime01延迟启动时间,initialDelaySeconds
+          - "10"
+          - "-serverhttp02" #server02监听端口
+          - "0.0.0.0:9999"
+          - "-serverTime02"  #serverTime02延迟启动时间,initialDelaySeconds
+          - "10"
+          - "-reqTimeout"    #模拟心跳延迟探测,timeoutSeconds
+          - "1"
+        name: nginx
+        livenessProbe:
+          # initialDelaySeconds: 12   #延迟加载时间
+          failureThreshold: 10      #检测失败5次表示未就绪
+          periodSeconds: 2         #重试时间间隔
+          timeoutSeconds: 2        #超时时间设置
+          # successThreshold: 1      #检查成功为2次表示就绪
+          httpGet:
+            scheme: HTTP
+            port: 8088
+            path: /api/v1/healthz
+        readinessProbe:
+          initialDelaySeconds: 5  
+          periodSeconds: 3          
+          timeoutSeconds: 2
+          successThreshold: 4   
+          httpGet:
+            scheme: HTTP
+            port: 8088
+            path: /api/v1/healthz
+        startupProbe:
+          httpGet:
+            scheme: HTTP   
+            path: /api/v1/healthz
+            port: 8088
+          timeoutSeconds: 2
+          failureThreshold: 6
+          periodSeconds: 2 
+        resources: {}
+status: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx
+  name: nginx
+spec:
+  ports:
+  - port: 9999
+    name: main-server02
+    protocol: TCP
+    targetPort: 9999
+  - port: 8088
+    name: main-server01
+    protocol: TCP
+    targetPort: 8088
+  selector:
+    app: nginx
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -45,7 +45,7 @@ jobs:
       - name: test
         run: pwd ; ls
       - name: package
-        run: tar -zcvf cloudopscmd_linux.tgz /home/runner/work/cloudopscmd/cloudopscmd
+        run: tar -zcvf cloudopscmd_linux.tgz bin/cloudopscmd
       - name: upload
         uses: actions/upload-release-asset@v1
         env:

@@ -43,7 +43,7 @@ jobs:
           name: cloudopscmd
           path: /home/runner/work/cloudopscmd/
       - name: package
-        run: tar -zcvf cloudopscmd_linux.tgz cloudopscmd
+        run: tar -zcvf cloudopscmd_linux.tgz /home/runner/work/cloudopscmd/cloudopscmd
       - name: upload
         uses: actions/upload-release-asset@v1
         env:

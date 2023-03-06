@@ -45,13 +45,13 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: cloudopscmd_amd
-          path: /home/runner/work/cloudopscmd/cloudopscmd/bin/amd
+          path: /home/runner/work/cloudopscmd/cloudopscmd/bin/amd/cloudopscmd
           
       - name: Archive production artifacts _v:arm
         uses: actions/upload-artifact@v1
         with:
           name: cloudopscmd_arm
-          path: /home/runner/work/cloudopscmd/cloudopscmd/bin/arm
+          path: /home/runner/work/cloudopscmd/cloudopscmd/bin/arm/cloudopscmd
           
       - name: package 
         run: tar -czf cloudopscmd.tar.gz /home/runner/work/cloudopscmd/cloudopscmd/bin

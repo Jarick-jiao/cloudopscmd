@@ -31,8 +31,8 @@ jobs:
         name: cloudopscmd
         path: /home/runner/work/cloudopscmd/cloudopscmd
         
-    - name: Checkout code
-      uses: actions/checkout@v2
+#    - name: Checkout code
+#     uses: actions/checkout@v2
         
     - name: Create Release
       id: create_release

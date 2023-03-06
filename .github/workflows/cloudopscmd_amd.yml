@@ -50,3 +50,4 @@ jobs:
           upload_url: ${{ needs.release.outputs.upload_url }}
           asset_path: /home/runner/work/cloudopscmd/
           asset_name: cloudopscmd
+          asset_content_type: application/gzip

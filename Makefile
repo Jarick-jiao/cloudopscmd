@@ -97,13 +97,11 @@ codecheck: modtidy
 cloudopscmdbuild_arm:  bindir   modtidy
 		@rm -rf ${CLOUDOPS_PACKAGE_PATH}/arm && mkdir ${CLOUDOPS_PACKAGE_PATH}/arm
 		@GOOS="linux" GOARCH="arm64" go build -ldflags ${LDFlags}  -o ${CLOUDOPS_PACKAGE_PATH}/arm ${CLOUDOPS_MAIN_PATH}
-		@cp ${CLOUDOPS_READMD_PATH} ${CLOUDOPS_PACKAGE_PATH}
 		@echo "BUILD DONE: ${CLOUDOPS_PACKAGE_PATH}/arm/${CLOUDOPS_PACKAGE_NAME}"
 
 cloudopscmdbuild_amd:  bindir  modtidy
 		@rm -rf ${CLOUDOPS_PACKAGE_PATH}/amd && mkdir ${CLOUDOPS_PACKAGE_PATH}/amd
 		@GOOS="linux" GOARCH="amd64" go build -ldflags ${LDFlags} -o ${CLOUDOPS_PACKAGE_PATH}/amd ${CLOUDOPS_MAIN_PATH}
-		@cp ${CLOUDOPS_READMD_PATH} ${CLOUDOPS_PACKAGE_PATH}
 		@echo "BUILD DONE: ${CLOUDOPS_PACKAGE_PATH}/amd/${CLOUDOPS_PACKAGE_NAME}"
 		
 cloudopspackage:   cloudopscmdbuild_arm cloudopscmdbuild_amd  

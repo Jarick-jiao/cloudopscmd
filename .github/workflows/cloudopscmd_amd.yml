@@ -46,7 +46,7 @@ jobs:
           path: /home/runner/work/cloudopscmd/cloudopscmd/bin
           
       - name: package 
-        run: tar -czf cloudopscmd.zip /home/runner/work/cloudopscmd/cloudopscmd/bin
+        run: tar -czf cloudopscmd.tar.gz /home/runner/work/cloudopscmd/cloudopscmd/bin
 
       - name: Upload Release Asset
         id: upload-release-asset 

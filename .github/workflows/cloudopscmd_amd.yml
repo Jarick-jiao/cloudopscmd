@@ -9,38 +9,49 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
+	
 jobs:
-
-  build:
+  release:
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: gocapture ${{ github.ref }}
+          draft: false
+          prerelease: false
+  linuxbuild:
+    name: build
+    needs: release
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-    - name: Set up Go
-      uses: actions/setup-go@v3
-      with:
-        go-version: 1.18
-
-    - name: Build
-      run:  go build  -o bin/cloudopscmd -v main.go
-
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: cloudopscmd
-        path: /home/runner/work/cloudopscmd/
-        
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACTIONSTOKEN1 }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        body: |
-          Changes in this Release
-          - cloudopscmd
-        draft: false
-        prerelease: false
+      - name: Set up Go
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.18
+	  
+      - name: Build
+        run:  go build  -o bin/cloudopscmd -v main.go
+		
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: cloudopscmd
+          path: /home/runner/work/cloudopscmd/
+		
+      - name: upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.release.outputs.upload_url }}
+          asset_path: cloudopscmd
+          asset_name: cloudopscmd

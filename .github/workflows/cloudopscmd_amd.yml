@@ -31,5 +31,7 @@ jobs:
         name: cloudopscmd
         path: /home/runner/work/cloudopscmd/cloudopscmd
 
+    - name: Mv cloudopscmd bin
+      run: cp /home/runner/work/cloudopscmd/cloudopscmd bin/amd/
 
 

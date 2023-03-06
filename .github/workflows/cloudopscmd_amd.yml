@@ -39,24 +39,18 @@ jobs:
       - name: Build
         run:  go build  -o bin/cloudopscmd -v cmds/cloudopscmd/cloudopscmd.go
         
-      - name: test
-        run: pwd ; ls bin/
-        
       - name: Archive production artifacts
         uses: actions/upload-artifact@v1
         with:
           name: cloudopscmd
           path: /home/runner/work/cloudopscmd/cloudopscmd/bin
-      
 
-      - name: package
-        run: tar -zcvf cloudopscmd_linux.tgz bin/cloudopscmd
-      - name: upload
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Archive production artifacts relesae
+        uses: actions/upload-artifact@v1
         with:
           upload_url: ${{ needs.release.outputs.upload_url }}
-          asset_path: /home/runner/work/cloudopscmd/
-          asset_name: cloudopscmd_linux.tgz
-          asset_content_type: application/gzip
+          name: cloudopscmd
+          path: /home/runner/work/cloudopscmd/cloudopscmd/bin
+      
+      
+

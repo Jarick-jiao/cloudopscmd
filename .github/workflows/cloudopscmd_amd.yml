@@ -41,8 +41,6 @@ jobs:
       - name: cloudopspackage
         run: make cloudopspackage
         
-      - name: pwd
-        run: ls ; pwd ; ls bin/ ; ls bin/cloudopscmd ; ls bin/arm
       - name: Archive production artifacts _v:amd
         uses: actions/upload-artifact@v1
         with:

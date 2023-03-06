@@ -36,14 +36,22 @@ jobs:
         with:
           go-version: 1.18
       
-      - name: Build
-        run:  go build  -o bin/cloudopscmd -v cmds/cloudopscmd/cloudopscmd.go
+      #- name: Build
+      # run:  go build  -o bin/cloudopscmd -v cmds/cloudopscmd/cloudopscmd.go
+      - name: cloudopspackage
+        run: make cloudopspackage
         
-      - name: Archive production artifacts
+      - name: Archive production artifacts _v:amd
         uses: actions/upload-artifact@v1
         with:
-          name: cloudopscmd
-          path: /home/runner/work/cloudopscmd/cloudopscmd/bin
+          name: cloudopscmd_amd
+          path: /home/runner/work/cloudopscmd/cloudopscmd/bin/amd
+          
+      - name: Archive production artifacts _v:arm
+        uses: actions/upload-artifact@v1
+        with:
+          name: cloudopscmd_arm
+          path: /home/runner/work/cloudopscmd/cloudopscmd/bin/arm
           
       - name: package 
         run: tar -czf cloudopscmd.tar.gz /home/runner/work/cloudopscmd/cloudopscmd/bin

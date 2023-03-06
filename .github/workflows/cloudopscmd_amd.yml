@@ -43,7 +43,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: cloudopscmd
-          path: /home/runner/work/cloudopscmd/bin
+          path: /home/runner/work/cloudopscmd/bin/
       
       - name: test
         run: pwd ; ls bin/

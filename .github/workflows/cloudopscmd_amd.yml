@@ -24,18 +24,12 @@ jobs:
 
     - name: Build
       run:  go build  -o bin/cloudopscmd -v main.go
-    
-    - name: ss
-      run: pwd
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
         name: cloudopscmd
         path: /home/runner/work/cloudopscmd/
-        
-    - name: Checkout code
-      uses: actions/checkout@v2
         
     - name: Create Release
       id: create_release

@@ -37,7 +37,7 @@ jobs:
           go-version: 1.18
       
       - name: Build
-        run:  go build  -o bin/cloudopscmd -v main.go
+        run:  go build  -o bin/cloudopscmd -v cmds/cloudopscmd/cloudopscmd.go
         
       - name: test
         run: pwd ; ls bin/

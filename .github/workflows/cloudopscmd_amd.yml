@@ -43,7 +43,7 @@ jobs:
           name: cloudopscmd
           path: /home/runner/work/cloudopscmd/
       - name: test
-        run: pwd ; ls
+        run: pwd ; ls bin/
       - name: package
         run: tar -zcvf cloudopscmd_linux.tgz bin/cloudopscmd
       - name: upload

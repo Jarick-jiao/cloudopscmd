@@ -43,7 +43,7 @@ jobs:
           name: cloudopscmd
           path: /home/runner/work/cloudopscmd/
       - name: upload
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:

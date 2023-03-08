@@ -9,8 +9,8 @@ on:
     branches: [ "main" ]
     tags: 
       - 'Release-*'
-    tags-ignore:
-      - 'refs/heads/main'
+    #tags-ignore:
+    #  - 'refs/heads/main'
   #pull_request:
   #  branches: [ "main" ]
 jobs:
